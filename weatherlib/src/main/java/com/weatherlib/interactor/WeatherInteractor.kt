@@ -2,6 +2,7 @@ package com.weatherlib.interactor
 
 import com.weatherlib.networking.api.WeatherApi
 import com.weatherlib.networking.model.WeatherModel
+import com.weatherlib.networking.utils.DateUtils
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class WeatherInteractor @Inject constructor(
                 api.getWeather(location.first().woeid)
                     .map { response ->
                         WeatherModel(
-                            response.consolidatedWeather.sortedBy { it.applicable_date.time },
+                            response.consolidatedWeather.filter { it.applicable_date == DateUtils.getCurrentDate() },
                             response.title,
                             response.locationType,
                             response.woeid,

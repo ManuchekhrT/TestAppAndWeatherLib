@@ -7,17 +7,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.weatherapp.extensions.formatDate
-import com.weatherapp.extensions.hide
-import com.weatherapp.extensions.hideKeyboard
-import com.weatherapp.extensions.show
+import com.weatherapp.extensions.*
 import com.weatherlib.WeatherApp
 import com.weatherlib.networking.model.WeatherModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
-
 
     private lateinit var app: WeatherApp
     private lateinit var loadingPb: ProgressBar
@@ -36,7 +32,10 @@ class MainActivity : AppCompatActivity() {
                     resources.getString(R.string.error_empty_field)
                 else {
                     hideKeyboard(this@MainActivity, this)
-                    getCurrentWeather(searchQuery)
+
+                    if (isNetworkAvailable())
+                        getCurrentWeather(searchQuery)
+                    else Toast.makeText(this@MainActivity, resources.getString(R.string.no_internet_available), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                         "Air Pressure: " + weather.airPressure + "mbar\n" +
                         "Humidity: " + weather.humidity + "%\n" +
                         "Predictability: " + weather.predictability + "%\n" +
-                        "Current date: " + formatDate(weather.applicable_date) + "\n"
+                        "Current date: " + weather.applicable_date + "\n"
             )
             builder.setIcon(android.R.drawable.ic_dialog_map)
 

@@ -3,4 +3,5 @@
     <string name="hint_search">Поиск погоды по городу, населенному пункту</string>
     <string name="find">Найти</string>
     <string name="error_empty_field">Пожалуйста заполните поле</string>
+    <string name="no_internet_available">Интернет соединение не найдено!</string>
 </resources>

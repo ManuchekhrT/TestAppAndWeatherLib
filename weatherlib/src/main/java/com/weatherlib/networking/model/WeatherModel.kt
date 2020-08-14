@@ -20,7 +20,7 @@ data class ConsolidatedWeather(
     @SerializedName("id")
     val id: Long,
     @SerializedName("applicable_date")
-    val applicable_date: Date,
+    val applicable_date: String,
     @SerializedName("weather_state_name")
     val weatherStateName: String,
     @SerializedName("the_temp")
